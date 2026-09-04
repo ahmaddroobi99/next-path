@@ -3,21 +3,24 @@
 @theme {
   --color-bg: #0c0c0d;
   --color-surface: #141416;
-  --color-surface-2: #1c1c1f;
-  --color-surface-3: #242428;
-  --color-fg: #e8e6e1;
-  --color-muted: #8c8a84;
-  --color-subtle: #5e5c58;
-  --color-border: rgb(232 230 225 / 0.12);
-  --color-border-strong: rgb(232 230 225 / 0.22);
-  --color-accent: #d8d4cc;
-  --color-accent-fg: #0c0c0d;
-  --color-copper: #c17a4a;
-  --color-signal: #7aa3ad;
-  --color-ok: #7a9e7e;
-  --color-warn: #c4a574;
-  --color-danger: #c45c4a;
-  --color-phosphor: #cfc8b0;
+  --color-elevated: #1c1c1f;
+  --color-fg: #ecece8;
+  --color-muted: #8e8e89;
+  --color-subtle: #6a6a66;
+  --color-accent: #c81e1e;
+  --color-accent-fg: #fff8f6;
+  --color-border: #2c2c2e;
+  --color-pcb: #163325;
+  --color-pcb-dark: #0e2419;
+  --color-copper: #a48452;
+  --color-silk: #c6d4c6;
+  --color-chip: #161618;
+  --color-ceramic: #d4cec0;
+  --color-path-in: #6ec8c4;
+  --color-path-out: #d4784a;
+  --color-phosphor: #d5d5c8;
+  --color-ok: #7a9a72;
+  --color-bus: #1a2744;
 
   --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
@@ -28,28 +31,32 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  --shadow-panel: 0 18px 50px rgb(0 0 0 / 0.45);
+  --shadow-border: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-border-hover: 0 0 0 1px rgba(255, 255, 255, 0.14);
 }
 
 @layer base {
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
-    cursor: pointer;
-  }
-
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100%;
     background: var(--color-bg);
     color: var(--color-fg);
   }
 
   body {
-    margin: 0;
-    min-height: 100dvh;
-    background: var(--color-bg);
-    color: var(--color-fg);
     font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
 
   h1,
@@ -62,44 +69,50 @@
     text-wrap: pretty;
   }
 
-  * {
-    box-sizing: border-box;
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 80%, black);
+    color: var(--color-accent-fg);
   }
 }
 
-.path-dash {
-  animation: dash-move 1.2s linear infinite;
-}
-
-@keyframes dash-move {
-  to {
-    stroke-dashoffset: -10;
+@media (prefers-reduced-motion: reduce) {
+  .nx-cube {
+    animation: none;
   }
 }
 
-
-.crt-scan {
+.scanlines {
   background: repeating-linear-gradient(
     to bottom,
-    rgb(0 0 0 / 0.14) 0px,
-    rgb(0 0 0 / 0.14) 1px,
-    transparent 1px,
-    transparent 3px
+    transparent 0px,
+    transparent 2px,
+    rgb(0 0 0 / 0.18) 2px,
+    rgb(0 0 0 / 0.18) 3px
   );
   pointer-events: none;
 }
 
-.tabular {
-  font-variant-numeric: tabular-nums;
+.nx-cube {
+  width: 160px;
+  height: 160px;
+  transform-style: preserve-3d;
+  animation: cube-spin 18s linear infinite;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+.nx-cube-face {
+  position: absolute;
+  inset: 0;
+  background: var(--color-elevated);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  display: grid;
+  place-items: center;
+}
+
+@keyframes cube-spin {
+  from {
+    transform: rotateX(-18deg) rotateY(18deg);
+  }
+  to {
+    transform: rotateX(-18deg) rotateY(378deg);
   }
 }
-

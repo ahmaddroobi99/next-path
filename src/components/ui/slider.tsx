@@ -1,17 +1,22 @@
+import { useEffect, useState, type ComponentProps } from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
-import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 export function Slider({ className, ...props }: ComponentProps<typeof SliderPrimitive.Root>) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) {
+    return <div className={cn("h-1 w-full rounded-full bg-elevated", className)} aria-hidden />;
+  }
   return (
     <SliderPrimitive.Root
-      className={cn("relative flex h-6 w-full touch-none items-center", className)}
+      className={cn("relative flex w-full touch-none items-center select-none", className)}
       {...props}
     >
-      <SliderPrimitive.Track className="relative h-1 w-full grow rounded-full bg-surface-3">
-        <SliderPrimitive.Range className="absolute h-full rounded-full bg-copper" />
+      <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-elevated">
+        <SliderPrimitive.Range className="absolute h-full bg-fg/70" />
       </SliderPrimitive.Track>
-      <SliderPrimitive.Thumb className="block size-4 rounded-full border border-border-strong bg-accent shadow-panel outline-none focus-visible:ring-2 focus-visible:ring-accent/40" />
+      <SliderPrimitive.Thumb className="block size-4 rounded-full bg-fg shadow-[var(--shadow-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50" />
     </SliderPrimitive.Root>
   );
 }

@@ -1,26 +1,23 @@
-# NeXT Path
+# Cube Trace
 
-Interactive motherboard lab for the NeXTcube (Rev 2.4, 1991). Trace a frame from a camera ADC to the MegaPixel phosphor, then steal the screen and walk every Ethernet packet across the Intel 82586 onto 10BASE-T.
+Interactive NeXTcube lab. Follow a single pixel from the camera through the 56001 DSP, across NeXTbus, into the 68040, onto the MegaPixel display — then out the LANCE as 10 Mbps Ethernet frames.
 
-## What it models
+1990 · 25 MHz · 10 Mbps.
 
-- **MC68040 @ 25 MHz** — integer unit, on-chip FPU, PMMU, 4 KB I-cache, 4 KB D-cache
-- **DSP56001 + MCM56824** — 24-bit DSP and 8K×24 SRAM (not the CPU)
-- **ICP DMA + NeXTbus** — 32-bit multiplexed, 25 MHz, 100 MB/s burst
-- **MegaPixel Display** — 1120×832, 2 bits/pixel, 68 Hz
-- **Intel 82586** — 10BASE-T and 10BASE2, OUI `08:00:07`
+## What you can do
 
-Pixel path: photons → ADC → DSP → ICP DMA → RAM → 68040 2-bit quantiser → framebuffer → CRT.
+- **Enter the lab** and capture a still from the camera (NeXT bust, facade, office, or a live webcam).
+- Watch the pixel path light up on the motherboard schematic.
+- Step the pipeline, inspect chips (68040, 56001, LANCE, framebuffer), and read cycle / packet metrics.
+- Share a frame over simulated Ethernet and see it land on the remote MegaPixel.
 
-Share path: framebuffer capture → XOR/RLE → TCP/IP → 82586 → PHY → wire (bandwidth / latency / loss) → remote ACK → peer CRT.
+Keyboard: `Space` play/pause · `Enter` capture · `S` share · `R` reset · `.` step.
 
-## Run
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Hardware note
-
-The stock Cube had no webcam. Live colour video historically lived on the NeXTdimension (i860) board. This lab hangs a pedagogical 8-bit grayscale ADC off the DSP port so the rest of the journey is real silicon on the main board.
+Then open the printed local URL. Production build: `npm run build`.

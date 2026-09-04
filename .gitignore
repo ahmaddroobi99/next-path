@@ -1,17 +1,25 @@
-node_modules
-.vercel
-.output
-.nitro
-.tanstack
-.grok
-dist
-screenshots
-artifacts
-attachments
+# dependencies
+node_modules/
+
+# build / cache
+dist/
+.output/
+.nitro/
+.tanstack/
+.vercel/
 *.log
-.env
-.env.*
-.DS_Store
-src/routeTree.gen.ts
+
+# local / sandbox-only
+.grok/
+artifacts/
+screenshots/
+attachments/
 .project_id
 .node_modules.lock
+AGENTS.md
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store

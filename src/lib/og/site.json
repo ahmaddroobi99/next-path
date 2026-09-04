@@ -1,6 +1,6 @@
 {
-  "title": "NeXT Path",
-  "type": "website",
+  "title": "Cube Trace",
+  "type": "x:game",
   "card": "custom",
-  "description": "Camera to phosphor. Framebuffer to packet."
+  "description": "Follow a pixel through a 1990 NeXTcube — from camera to MegaPixel display, then out over 10 Mbps Ethernet."
 }

@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Lab } from "@/components/lab";
+import { LabApp } from "@/components/lab/lab-app";
 
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-  return <Lab />;
+  return <LabApp />;
 }
